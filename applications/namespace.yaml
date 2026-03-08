@@ -1,0 +1,22 @@
+# we are deploying an application into agrocd namespce with resectipe folder source 
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: namespace
+  namespace: argocd # Argo CD Application resources are typically in the 'argocd' namespace
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/kanakavignesh14/eks-argocd.git # source repo
+    targetRevision: main
+    path: namespaces  # folder name source 
+  destination:
+    server: https://kubernetes.default.svc # current cluster
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true  # if we delete in github, argocd will delete it in cluster aslo
+      selfHeal: true   # Revert the changes tht are done manualluy in cluster, to makesure sync both them same
+    syncOptions:
+    - CreateNamespace=true # Automatically creates the destination namespace if it doesn't exist
