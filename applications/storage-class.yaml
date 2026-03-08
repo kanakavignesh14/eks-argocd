@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/kanakavignesh14/eks-argocd.git # source repo
     targetRevision: main
-    path: storage-class  # folder name source 
+    path: storage-classes  # folder name source 
   destination:
     server: https://kubernetes.default.svc # current cluster
     namespace: argocd
